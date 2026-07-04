@@ -6,7 +6,19 @@
 
 ## 当前状态
 
-第一版 MVP 表结构已完成。
+第一版 MVP 表结构已完成，并已落地为数据库迁移 SQL。
+
+实际迁移文件：
+
+```text
+backend\smart-commerce-admin\src\main\resources\db\migration\V1__init_schema.sql
+```
+
+说明：
+
+- `docs\02-database-design.md` 负责记录设计思路、表关系、字段原因和索引说明。
+- `V1__init_schema.sql` 是真正可执行的建表 SQL，后续以该文件为准。
+- 文档中如需展示 SQL，应与迁移文件保持同步，避免出现两份 SQL 互相漂移。
 
 ## 设计原则
 
@@ -254,6 +266,7 @@ order_info 1 -- 0/1 seckill_order
 
 说明：
 
+- 实际可执行 SQL 文件位于 `backend\smart-commerce-admin\src\main\resources\db\migration\V1__init_schema.sql`。
 - 使用 `bigint unsigned` 作为主键，方便后续数据增长。
 - 金额使用 `decimal(10,2)`，不要用 `float` 或 `double` 存钱。
 - 时间字段统一使用 `datetime`。
@@ -298,8 +311,8 @@ CREATE TABLE sys_user_role (
     role_id BIGINT UNSIGNED NOT NULL COMMENT '角色ID',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_user_role (user_id, role_id),
-    KEY idx_user_role_role_id (role_id)
+    UNIQUE KEY uk_sys_user_role_user_role (user_id, role_id),
+    KEY idx_sys_user_role_role_id (role_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色关联表';
 
 CREATE TABLE product_category (
@@ -312,8 +325,8 @@ CREATE TABLE product_category (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '逻辑删除：0未删除，1已删除',
     PRIMARY KEY (id),
-    KEY idx_category_parent_id (parent_id),
-    KEY idx_category_status_sort (status, sort)
+    KEY idx_product_category_parent_id (parent_id),
+    KEY idx_product_category_status_sort (status, sort)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品分类表';
 
 CREATE TABLE product (
@@ -355,10 +368,10 @@ CREATE TABLE order_info (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_order_no (order_no),
-    KEY idx_order_user_id (user_id),
-    KEY idx_order_status (order_status),
-    KEY idx_order_created_at (created_at)
+    UNIQUE KEY uk_order_info_order_no (order_no),
+    KEY idx_order_info_user_id (user_id),
+    KEY idx_order_info_order_status (order_status),
+    KEY idx_order_info_created_at (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='订单表';
 
 CREATE TABLE order_item (
@@ -389,8 +402,8 @@ CREATE TABLE seckill_activity (
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     deleted TINYINT NOT NULL DEFAULT 0 COMMENT '逻辑删除：0未删除，1已删除',
     PRIMARY KEY (id),
-    KEY idx_seckill_product_id (product_id),
-    KEY idx_seckill_time_status (start_time, end_time, status)
+    KEY idx_seckill_activity_product_id (product_id),
+    KEY idx_seckill_activity_time_status (start_time, end_time, status)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='秒杀活动表';
 
 CREATE TABLE seckill_order (
@@ -404,7 +417,7 @@ CREATE TABLE seckill_order (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (id),
-    UNIQUE KEY uk_seckill_user_activity (activity_id, user_id),
+    UNIQUE KEY uk_seckill_order_activity_user (activity_id, user_id),
     KEY idx_seckill_order_user_id (user_id),
     UNIQUE KEY uk_seckill_order_order_id (order_id),
     KEY idx_seckill_order_status (status)
