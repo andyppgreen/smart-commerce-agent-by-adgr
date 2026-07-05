@@ -12,12 +12,14 @@
 
 ```text
 backend\smart-commerce-admin\src\main\resources\db\migration\V1__init_schema.sql
+backend\smart-commerce-admin\src\main\resources\db\migration\V2__init_data.sql
 ```
 
 说明：
 
 - `docs\02-database-design.md` 负责记录设计思路、表关系、字段原因和索引说明。
 - `V1__init_schema.sql` 是真正可执行的建表 SQL，后续以该文件为准。
+- `V2__init_data.sql` 是 MVP 测试数据，用于验证用户、角色、商品、订单、秒杀链路。
 - 文档中如需展示 SQL，应与迁移文件保持同步，避免出现两份 SQL 互相漂移。
 
 ## 设计原则
@@ -454,6 +456,33 @@ CREATE TABLE seckill_order (
 - `seckill_order.user_id`：用户查询自己的秒杀结果。
 - `seckill_order.order_id` 唯一索引：从秒杀记录反查普通订单，并保证一条普通订单最多关联一条秒杀记录。
 
+## 初始化测试数据
+
+测试数据文件：
+
+```text
+backend\smart-commerce-admin\src\main\resources\db\migration\V2__init_data.sql
+```
+
+数据目标：
+
+- 初始化 `ADMIN` 和 `CUSTOMER` 两个角色。
+- 初始化 1 个后台管理员和 2 个普通买家。
+- 绑定用户和角色，验证 `sys_user_role` 多对多关系。
+- 初始化 3 个商品分类和 3 个商品。
+- 初始化 1 个普通订单，包含 2 条订单明细。
+- 初始化 1 个秒杀活动。
+- 初始化 1 个秒杀成功记录，并关联 1 个秒杀来源的普通订单。
+
+这组数据可以验证以下关系：
+
+```text
+sys_user -> sys_user_role -> sys_role
+product_category -> product
+sys_user -> order_info -> order_item -> product
+product -> seckill_activity -> seckill_order -> order_info
+```
+
 ## 待解决问题
 
 1. 是否在 Java 后端阶段引入数据库外键约束。
@@ -492,4 +521,5 @@ CREATE TABLE seckill_order (
 - 商品库存第一版放在 `product.stock`，暂不拆库存表。
 - 普通订单使用 `order_info` + `order_item`。
 - 秒杀订单使用 `seckill_order` 记录抢购结果，并通过 `order_id` 关联普通订单。
-- 下一步可以进入 Java 后端基础项目搭建，或先补充初始化数据 SQL。
+- 已补充 `V2__init_data.sql` 初始化测试数据。
+- 下一步可以验证 SQL 执行结果，或通过 PR 将 `feature/database-design` 合并到 `dev`。
