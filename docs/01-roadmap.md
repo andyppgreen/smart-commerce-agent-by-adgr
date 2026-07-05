@@ -11,7 +11,7 @@
 - 创建各分支文档。
 - 记录第一条架构决策。
 
-状态：进行中。
+状态：已完成。
 
 ## 阶段 1：数据库设计
 
@@ -24,9 +24,19 @@
 - 核心字段解释。
 - 索引设计初稿。
 
+实际产出：
+
+- `docs\02-database-design.md`：数据库设计说明。
+- `backend\smart-commerce-admin\src\main\resources\db\migration\V1__init_schema.sql`：MVP 建表 SQL。
+- `backend\smart-commerce-admin\src\main\resources\db\migration\V2__init_data.sql`：MVP 初始化测试数据。
+
+状态：已完成。
+
 ## 阶段 2：Java 后端基础功能
 
 目标：完成电商后台基础接口。
+
+状态：准备开始。
 
 模块：
 

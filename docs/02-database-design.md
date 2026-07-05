@@ -6,7 +6,7 @@
 
 ## 当前状态
 
-第一版 MVP 表结构已完成，并已落地为数据库迁移 SQL。
+第一版 MVP 表结构已完成，并已落地为数据库迁移 SQL。本分支可以收尾，后续可通过 PR 合并到 `dev`。
 
 实际迁移文件：
 
@@ -522,4 +522,6 @@ product -> seckill_activity -> seckill_order -> order_info
 - 普通订单使用 `order_info` + `order_item`。
 - 秒杀订单使用 `seckill_order` 记录抢购结果，并通过 `order_id` 关联普通订单。
 - 已补充 `V2__init_data.sql` 初始化测试数据。
-- 下一步可以验证 SQL 执行结果，或通过 PR 将 `feature/database-design` 合并到 `dev`。
+- 当前分支：`feature/database-design`。
+- 当前远程分支已推送数据库设计提交。
+- 下一步建议：通过 PR 将 `feature/database-design` 合并到 `dev`，然后开启 Java 后端基础项目搭建分支。
