@@ -10,7 +10,9 @@
 
 ## 当前阶段
 
-阶段 0：项目主线与文档骨架搭建。
+阶段 2：Java 后端基础功能开发中。
+
+当前已完成数据库设计，以及 Java 后端基础骨架、登录认证、JWT 鉴权和角色权限底座。
 
 ## 目录说明
 
@@ -36,4 +38,3 @@ smart-commerce-agent/
 - LangGraph Agent：`docs/07-langgraph-agent.md`
 - 部署：`docs/08-deployment.md`
 - 简历：`docs/09-resume.md`
-

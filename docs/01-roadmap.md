@@ -36,17 +36,29 @@
 
 目标：完成电商后台基础接口。
 
-状态：准备开始。
+状态：进行中。
 
 模块：
 
-- 用户登录。
-- JWT 认证。
+- 用户登录。已完成
+- JWT 认证。已完成
+- 角色权限底座。已完成
 - 商品分类管理。
 - 商品管理。
 - 订单创建与查询。
-- 全局异常处理。
-- 参数校验。
+- 全局异常处理。已完成
+- 参数校验。已接入基础能力
+
+当前产出：
+
+- `backend\smart-commerce-admin`：Spring Boot 后端基础模块。
+- Maven Wrapper：统一后端构建入口。
+- Flyway：复用数据库迁移脚本，并新增 `V3__update_seed_user_passwords.sql` 对齐本地登录测试密码。
+- 认证接口：`POST /api/auth/login`。
+- 当前用户接口：`GET /api/auth/me`。
+- 管理员测试接口：`GET /api/admin/me`。
+- 角色权限注解：`@RequireRoles`。
+- 测试：后端基础测试与认证权限集成测试已通过。
 
 ## 阶段 3：Redis 缓存能力
 
