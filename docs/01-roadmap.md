@@ -43,7 +43,7 @@
 - 用户登录。已完成
 - JWT 认证。已完成
 - 角色权限底座。已完成
-- 商品分类管理。
+- 商品分类管理。已完成 MVP
 - 商品管理。
 - 订单创建与查询。
 - 全局异常处理。已完成
@@ -57,8 +57,9 @@
 - 认证接口：`POST /api/auth/login`。
 - 当前用户接口：`GET /api/auth/me`。
 - 管理员测试接口：`GET /api/admin/me`。
+- 商品分类管理接口：`GET/POST /api/admin/categories`、`PUT/DELETE /api/admin/categories/{id}`。
 - 角色权限注解：`@RequireRoles`。
-- 测试：后端基础测试与认证权限集成测试已通过。
+- 测试：后端基础、认证权限和商品分类集成测试已通过。
 
 ## 阶段 3：Redis 缓存能力
 

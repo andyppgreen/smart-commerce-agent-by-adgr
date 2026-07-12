@@ -35,14 +35,14 @@
 - 完成 Java 后端基础模块 `backend/smart-commerce-admin`。
 - 接入 Maven Wrapper、Spring Boot、MyBatis-Plus、MySQL、Flyway、Validation、JWT 和测试基础能力。
 - 完成统一响应结构、全局异常处理、用户登录、JWT 拦截、当前用户查询、角色权限注解与管理员权限拦截。
+- 完成商品分类管理 MVP，包括查询、新增、修改和逻辑删除。
 
 ## 正在进行
 
-- Java 后端商品分类管理模块。
+- Java 后端商品管理模块。
 
 ## 待完成
 
-- 商品分类管理。
 - 商品管理、订单模块。
 - Redis 缓存与秒杀模块。
 - RabbitMQ 异步下单。
