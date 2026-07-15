@@ -123,6 +123,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
                 .update();
     }
 
+    @Override
+    public boolean deductStock(Long productId, Integer quantity) {
+        return baseMapper.deductStock(productId, quantity) == 1;
+    }
+
     private void validateCategory(Long categoryId) {
         ProductCategory category = productCategoryService.getById(categoryId);
         if (category == null || Integer.valueOf(1).equals(category.getDeleted())) {

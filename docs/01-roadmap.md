@@ -36,7 +36,7 @@
 
 目标：完成电商后台基础接口。
 
-状态：进行中。
+状态：已完成。
 
 模块：
 
@@ -45,7 +45,7 @@
 - 角色权限底座。已完成
 - 商品分类管理。已完成 MVP
 - 商品管理。已完成 MVP
-- 订单创建与查询。
+- 订单创建与查询。已完成 MVP
 - 全局异常处理。已完成
 - 参数校验。已接入基础能力
 
@@ -61,8 +61,11 @@
 - 后台商品管理接口：`GET/POST /api/admin/products`、`GET/PUT/DELETE /api/admin/products/{id}`。
 - 商品列表支持分页、关键词、分类和上下架状态筛选。
 - 普通用户商品目录：`GET /api/products`、`GET /api/products/{id}`，只返回已上架、未删除商品。
+- 普通用户订单接口：`POST /api/orders`、`GET /api/orders`、`GET /api/orders/{id}`。
+- 后台订单接口：`GET /api/admin/orders`、`GET /api/admin/orders/{id}`。
+- 下单支持多商品明细、商品信息快照、后端金额计算和数据库事务内原子扣减库存。
 - 角色权限注解：`@RequireRoles`。
-- 测试：后端基础、认证权限、商品分类和后台商品管理集成测试已通过。
+- 测试：后端基础、认证权限、商品分类、商品管理和订单管理集成测试已通过。
 
 ## 阶段 3：Redis 缓存能力
 
