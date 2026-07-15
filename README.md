@@ -10,9 +10,11 @@
 
 ## 当前阶段
 
-阶段 2：Java 后端基础功能已完成，准备进入阶段 3 Redis 缓存能力。
+阶段 2：Java 后端基础功能已完成并通过阶段验收，准备合并到 `dev` 后进入阶段 3 Redis 缓存能力。
 
 当前已完成数据库设计，以及 Java 后端认证权限、商品分类、商品管理和订单管理 MVP。
+
+Java 后端的启动方式、测试账号、模块结构、验收结果和后续边界见 `backend/smart-commerce-admin/README.md`。
 
 ## 目录说明
 
@@ -33,6 +35,7 @@ smart-commerce-agent/
 - 数据库设计：`docs/02-database-design.md`
 - 接口设计：`docs/03-api-design.md`
 - Java 后端：`docs/04-java-backend.md`
+- Java 后端运行交接：`backend/smart-commerce-admin/README.md`
 - Redis 秒杀：`docs/05-redis-seckill.md`
 - FastAPI AI 服务：`docs/06-fastapi-ai-service.md`
 - LangGraph Agent：`docs/07-langgraph-agent.md`
