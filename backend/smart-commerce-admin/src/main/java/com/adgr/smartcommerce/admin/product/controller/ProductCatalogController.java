@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 @Validated
 @RestController
@@ -38,8 +39,13 @@ public class ProductCatalogController {
                 ProductCatalogResponse::from));
     }
 
+    @GetMapping("/hot")
+    public ApiResponse<List<ProductCatalogResponse>> hot() {
+        return ApiResponse.success(productService.listHotProductCatalog());
+    }
+
     @GetMapping("/{id}")
     public ApiResponse<ProductCatalogResponse> detail(@PathVariable Long id) {
-        return ApiResponse.success(ProductCatalogResponse.from(productService.getPublishedProduct(id)));
+        return ApiResponse.success(productService.getPublishedProductCatalog(id));
     }
 }

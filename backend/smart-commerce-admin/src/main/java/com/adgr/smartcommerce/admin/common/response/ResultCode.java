@@ -8,6 +8,7 @@ public enum ResultCode {
     UNAUTHORIZED(40101, "未登录或登录已过期"),
     FORBIDDEN(40300, "无权限访问"),
     ACCOUNT_DISABLED(40301, "账号已被禁用"),
+    RATE_LIMITED(42900, "请求过于频繁，请稍后再试"),
     SYSTEM_ERROR(50000, "系统异常");
 
     private final int code;

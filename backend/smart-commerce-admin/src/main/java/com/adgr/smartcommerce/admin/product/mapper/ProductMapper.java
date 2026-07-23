@@ -11,7 +11,7 @@ public interface ProductMapper extends BaseMapper<Product> {
 
     @Update("""
             UPDATE product
-            SET stock = stock - #{quantity}, version = version + 1
+            SET stock = stock - #{quantity}, sales = sales + #{quantity}, version = version + 1
             WHERE id = #{productId}
               AND stock >= #{quantity}
               AND status = 1

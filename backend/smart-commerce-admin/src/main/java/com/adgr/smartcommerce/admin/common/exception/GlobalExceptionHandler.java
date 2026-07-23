@@ -23,6 +23,7 @@ public class GlobalExceptionHandler {
         HttpStatus status = switch (ex.getResultCode()) {
             case LOGIN_FAILED, UNAUTHORIZED -> HttpStatus.UNAUTHORIZED;
             case FORBIDDEN, ACCOUNT_DISABLED -> HttpStatus.FORBIDDEN;
+            case RATE_LIMITED -> HttpStatus.TOO_MANY_REQUESTS;
             default -> HttpStatus.BAD_REQUEST;
         };
         return ResponseEntity.status(status).body(ApiResponse.fail(ex.getResultCode(), ex.getMessage()));

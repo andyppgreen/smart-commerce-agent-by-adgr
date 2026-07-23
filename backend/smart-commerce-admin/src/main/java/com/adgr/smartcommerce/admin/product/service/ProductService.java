@@ -1,8 +1,10 @@
 package com.adgr.smartcommerce.admin.product.service;
 
 import com.adgr.smartcommerce.admin.product.entity.Product;
+import com.adgr.smartcommerce.admin.product.dto.ProductCatalogResponse;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import java.util.List;
 
 public interface ProductService extends IService<Product> {
 
@@ -13,6 +15,10 @@ public interface ProductService extends IService<Product> {
     Product getActiveProduct(Long id);
 
     Product getPublishedProduct(Long id);
+
+    ProductCatalogResponse getPublishedProductCatalog(Long id);
+
+    List<ProductCatalogResponse> listHotProductCatalog();
 
     Product createProduct(Product product);
 

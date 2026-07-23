@@ -66,6 +66,7 @@ class OrderControllerIntegrationTest {
         productSnapshots.forEach((productId, snapshot) -> productService.lambdaUpdate()
                 .eq(Product::getId, productId)
                 .set(Product::getStock, snapshot.stock())
+                .set(Product::getSales, snapshot.sales())
                 .set(Product::getVersion, snapshot.version())
                 .update());
     }
@@ -133,6 +134,10 @@ class OrderControllerIntegrationTest {
                 .isEqualTo(productSnapshots.get(2L).stock() - 1);
         assertThat(productService.getById(3L).getStock())
                 .isEqualTo(productSnapshots.get(3L).stock() - 2);
+        assertThat(productService.getById(2L).getSales())
+                .isEqualTo(productSnapshots.get(2L).sales() + 1);
+        assertThat(productService.getById(3L).getSales())
+                .isEqualTo(productSnapshots.get(3L).sales() + 2);
     }
 
     @Test
@@ -177,7 +182,8 @@ class OrderControllerIntegrationTest {
 
     private void snapshotProduct(Long productId) {
         Product product = productService.getById(productId);
-        productSnapshots.put(productId, new ProductSnapshot(product.getStock(), product.getVersion()));
+        productSnapshots.put(productId,
+                new ProductSnapshot(product.getStock(), product.getVersion(), product.getSales()));
     }
 
     private String login(String username, String password) throws Exception {
@@ -197,6 +203,6 @@ class OrderControllerIntegrationTest {
         return json.path("data").path("accessToken").asText();
     }
 
-    private record ProductSnapshot(Integer stock, Integer version) {
+    private record ProductSnapshot(Integer stock, Integer version, Integer sales) {
     }
 }

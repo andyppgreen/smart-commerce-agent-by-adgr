@@ -74,6 +74,21 @@ class ProductCatalogControllerIntegrationTest {
     }
 
     @Test
+    void anonymousUserShouldGetHotProductsBySales() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(get("/api/products/hot"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse();
+
+        JsonNode products = objectMapper.readTree(response.getContentAsString()).path("data");
+        assertThat(products.isArray()).isTrue();
+        assertThat(products.size()).isBetween(1, 10);
+        assertThat(products.get(0).path("productName").asText()).isEqualTo("精品咖啡豆");
+        assertThat(products.get(0).path("sales").asInt())
+                .isGreaterThanOrEqualTo(products.get(1).path("sales").asInt());
+    }
+
+    @Test
     void anonymousUserShouldNotSeeOfflineProduct() throws Exception {
         Product product = new Product();
         product.setCategoryId(1L);

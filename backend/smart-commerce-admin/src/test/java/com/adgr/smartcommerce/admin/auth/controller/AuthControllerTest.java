@@ -11,6 +11,7 @@ import com.adgr.smartcommerce.admin.auth.dto.LoginResponse;
 import com.adgr.smartcommerce.admin.auth.dto.LoginUserInfo;
 import com.adgr.smartcommerce.admin.auth.service.AuthService;
 import com.adgr.smartcommerce.admin.auth.service.JwtTokenService;
+import com.adgr.smartcommerce.admin.common.ratelimit.RedisRateLimiter;
 import java.time.Instant;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -31,6 +32,9 @@ class AuthControllerTest {
 
     @MockBean
     private JwtTokenService jwtTokenService;
+
+    @MockBean
+    private RedisRateLimiter redisRateLimiter;
 
     @Test
     void loginShouldReturnToken() throws Exception {
